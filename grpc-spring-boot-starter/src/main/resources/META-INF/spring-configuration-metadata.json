@@ -1,0 +1,37 @@
+{
+  "hints": [],
+  "groups": [
+  ],
+  "properties": [
+    {
+      "sourceType": "io.nity.grpc.autoconfigure.GrpcProperties",
+      "name": "grpc.server.port",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "io.nity.grpc.autoconfigure.GrpcProperties",
+      "name": "grpc.server.enabled",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.nity.grpc.autoconfigure.GrpcProperties",
+      "name": "grpc.server.inProcessServerName",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.nity.grpc.autoconfigure.GrpcProperties",
+      "name": "grpc.server.enableReflection",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.nity.grpc.autoconfigure.GrpcProperties",
+      "name": "grpc.stub.host",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.nity.grpc.autoconfigure.GrpcProperties",
+      "name": "grpc.stub.port",
+      "type": "java.lang.Integer"
+    }
+  ]
+}
