@@ -1,7 +1,9 @@
 package io.nity.grpc.sample.grpc;
 
 import io.grpc.Channel;
+import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.nity.grpc.DisposableManagedChannel;
 import io.nity.grpc.autoconfigure.GrpcProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -35,16 +37,17 @@ public class GrpcStubConfig {
 
     @Bean
     @ConditionalOnExpression("#{environment.getProperty('grpc.stub.host','')!=''}")
-    public Channel getChannel() {
+    public DisposableManagedChannel getChannel() {
         String host = grpcProperties.getStub().getHost();
         int port = grpcProperties.getStub().getPort();
 
-        Channel channel = ManagedChannelBuilder.forAddress(host, port)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
                 // Channels are secure by default (via SSL/TLS). For the example we disable TLS to avoid
                 // needing certificates.
                 .usePlaintext()
                 .build();
 
-        return channel;
+        DisposableManagedChannel disposableManagedChannel = new DisposableManagedChannel(channel);
+        return disposableManagedChannel;
     }
 }
