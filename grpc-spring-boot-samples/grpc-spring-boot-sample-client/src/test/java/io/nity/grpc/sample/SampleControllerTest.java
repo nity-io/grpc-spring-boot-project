@@ -56,10 +56,10 @@ public class SampleControllerTest {
                 .setNumber2(2)
                 .setOperation(CalculatorOuterClass.CalculatorRequest.OperationType.ADD)
                 .build();
-
         CalculatorOuterClass.CalculatorResponse calculatorResponse = CalculatorOuterClass.CalculatorResponse.newBuilder()
                 .setResult(3)
                 .build();
+
         given(this.calculatorBlockingStub.calculate(calculatorRequest)).willReturn(calculatorResponse);
 
         this.mvc.perform(get("/calculate").accept(MediaType.APPLICATION_JSON))
