@@ -122,7 +122,9 @@
                     <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
                     <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+                    <!--默认值${project.basedir}/src/main/proto-->
                     <protoSourceRoot>../grpc-spring-boot-sample-proto/src/main/proto</protoSourceRoot>
+                    <!--更多配置信息可以查看https://www.xolstice.org/protobuf-maven-plugin/compile-mojo.html-->
                 </configuration>
                 <executions>
                     <execution>
