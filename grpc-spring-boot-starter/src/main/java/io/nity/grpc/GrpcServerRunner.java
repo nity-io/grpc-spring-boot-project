@@ -31,7 +31,7 @@ import java.util.stream.Stream;
  */
 public class GrpcServerRunner implements CommandLineRunner, DisposableBean {
 
-    private final Logger log = LoggerFactory.getLogger(GrpcServerRunner.class);
+    private static final Logger log = LoggerFactory.getLogger(GrpcServerRunner.class);
 
     @Autowired
     private HealthStatusManager healthStatusManager;
@@ -89,9 +89,8 @@ public class GrpcServerRunner implements CommandLineRunner, DisposableBean {
         server = serverBuilder.build().start();
         applicationContext.publishEvent(new GrpcServerInitializedEvent(server));
 
-        log.info("gRPC Server started, listening on port {}.", server.getPort());
+        log.info("gRPC Server started");
         startDaemonAwaitThread();
-
     }
 
     private ServerServiceDefinition bindInterceptors(ServerServiceDefinition serviceDefinition, GrpcService grpcService, Collection<ServerInterceptor> globalInterceptors) {
