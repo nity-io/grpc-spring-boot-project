@@ -37,8 +37,8 @@ public class GreeterStubTest extends StubTestBase {
         GreeterOuterClass.HelloRequest request = GreeterOuterClass.HelloRequest.newBuilder()
                 .setName(user)
                 .build();
-        GreeterOuterClass.HelloReply response = greeterBlockingStub.sayHello(request);
-        String message = response.getMessage();
+        GreeterOuterClass.HelloReply reply = greeterBlockingStub.sayHello(request);
+        String message = reply.getMessage();
 
         //验证返回结果
         Assert.assertEquals("Hello " + user, message);
@@ -53,8 +53,8 @@ public class GreeterStubTest extends StubTestBase {
         request = GreeterOuterClass.HelloRequest.newBuilder()
                 .setName(user)
                 .build();
-        response = greeterBlockingStub.sayHello(request);
-        message = response.getMessage();
+        reply = greeterBlockingStub.sayHello(request);
+        message = reply.getMessage();
 
         //验证返回结果
         Assert.assertEquals("Hello " + user, message);

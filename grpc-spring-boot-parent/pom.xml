@@ -39,7 +39,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
         <grpc.version>1.16.1</grpc.version>
-        <protobuf.version>3.5.1</protobuf.version>
+        <protobuf.version>3.6.1</protobuf.version>
+        <protoc.version>3.6.1</protoc.version>
+        <netty.tcnative.version>2.0.7.Final</netty.tcnative.version>
+
         <!-- Build args -->
         <argline>-server -Xms256m -Xmx512m -XX:PermSize=64m -XX:MaxPermSize=128m -Dfile.encoding=UTF-8
             -Djava.net.preferIPv4Stack=true
@@ -74,14 +77,9 @@
             <!-- gRPC -->
             <dependency>
                 <groupId>io.grpc</groupId>
-                <artifactId>grpc-netty-shaded</artifactId>
+                <artifactId>grpc-netty</artifactId>
                 <version>${grpc.version}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>io.grpc</groupId>-->
-                <!--<artifactId>grpc-netty</artifactId>-->
-                <!--<version>${grpc.version}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>io.grpc</groupId>
                 <artifactId>grpc-services</artifactId>
@@ -98,18 +96,10 @@
                 <version>${grpc.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.grpc</groupId>
-                <artifactId>grpc-testing</artifactId>
-                <version>${grpc.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>com.google.api.grpc</groupId>
                 <artifactId>proto-google-common-protos</artifactId>
                 <version>1.0.0</version>
             </dependency>
-
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java-util</artifactId>
@@ -129,6 +119,12 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-testing</artifactId>
+                <version>${grpc.version}</version>
                 <scope>test</scope>
             </dependency>
             <!--mockito-core不可与mockito-inline同时使用高级版本
