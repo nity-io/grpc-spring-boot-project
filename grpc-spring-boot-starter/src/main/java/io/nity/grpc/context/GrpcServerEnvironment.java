@@ -17,13 +17,12 @@ public class GrpcServerEnvironment implements EnvironmentPostProcessor {
         MutablePropertySources sources = environment.getPropertySources();
         Properties properties = new Properties();
         Integer configuredPort = environment.getProperty("grpc.server.port", Integer.class);
-        properties.put("grpc.server.port", 0);
+
         if (null == configuredPort) {
             properties.put(LocalRunningGrpcPort.propertyName, GrpcProperties.DEFAULT_GRPC_PORT);
         } else if (0 == configuredPort) {
             properties.put(LocalRunningGrpcPort.propertyName, SocketUtils.findAvailableTcpPort());
         } else {
-            properties.put("grpc.server.port", configuredPort);
             properties.put(LocalRunningGrpcPort.propertyName, configuredPort);
         }
 
