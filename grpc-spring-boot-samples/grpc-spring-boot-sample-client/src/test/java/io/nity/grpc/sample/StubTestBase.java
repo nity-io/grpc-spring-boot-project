@@ -4,7 +4,6 @@ import io.grpc.BindableService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.testing.GrpcCleanupRule;
-import io.nity.grpc.GreeterGrpc;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
@@ -23,9 +22,6 @@ public abstract class StubTestBase {
 
     @Autowired
     protected Environment environment;
-
-    @Autowired
-    protected GreeterGrpc.GreeterBlockingStub greeterBlockingStub;
 
     /**
      * This rule manages automatic graceful shutdown for the registered servers and channels at the end of test.

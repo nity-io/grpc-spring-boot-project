@@ -3,15 +3,15 @@ package io.nity.grpc.sample.grpc;
 import io.grpc.Channel;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.examples.helloworld.GreeterGrpc;
+import io.grpc.examples.manualflowcontrol.StreamingGreeterGrpc;
 import io.grpc.inprocess.InProcessChannelBuilder;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NegotiationType;
 import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
-import io.nity.grpc.CalculatorGrpc;
 import io.nity.grpc.DisposableManagedChannel;
-import io.nity.grpc.GreeterGrpc;
 import io.nity.grpc.autoconfigure.GrpcProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +44,9 @@ public class GrpcStubConfig {
     }
 
     @Bean
-    public CalculatorGrpc.CalculatorBlockingStub getCalculatorBlockingStub(Channel channel) {
-        CalculatorGrpc.CalculatorBlockingStub blockingStub = CalculatorGrpc.newBlockingStub(channel);
-        return blockingStub;
+    public StreamingGreeterGrpc.StreamingGreeterStub getStreamingGreeterStub(Channel channel) {
+        StreamingGreeterGrpc.StreamingGreeterStub streamingGreeterStub = StreamingGreeterGrpc.newStub(channel);
+        return streamingGreeterStub;
     }
 
     @Bean

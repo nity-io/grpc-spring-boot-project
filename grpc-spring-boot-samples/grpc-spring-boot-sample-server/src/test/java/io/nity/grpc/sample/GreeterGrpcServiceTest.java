@@ -1,7 +1,8 @@
 package io.nity.grpc.sample;
 
-import io.nity.grpc.GreeterGrpc;
-import io.nity.grpc.GreeterOuterClass;
+import io.grpc.examples.helloworld.GreeterGrpc;
+import io.grpc.examples.helloworld.HelloReply;
+import io.grpc.examples.helloworld.HelloRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +21,10 @@ public class GreeterGrpcServiceTest extends GrpcServiceBaseTest {
     public void testSayHello() {
         //test Hello World
         String user = "World";
-        GreeterOuterClass.HelloRequest request = GreeterOuterClass.HelloRequest.newBuilder()
+        HelloRequest request = HelloRequest.newBuilder()
                 .setName(user)
                 .build();
-        GreeterOuterClass.HelloReply reply = this.greeterBlockingStub.sayHello(request);
+        HelloReply reply = this.greeterBlockingStub.sayHello(request);
         String message = reply.getMessage();
 
         //验证返回结果
@@ -31,7 +32,7 @@ public class GreeterGrpcServiceTest extends GrpcServiceBaseTest {
 
         //test Hello LiLei
         user = " LiLei";
-        request = GreeterOuterClass.HelloRequest.newBuilder()
+        request = HelloRequest.newBuilder()
                 .setName(user)
                 .build();
         reply = greeterBlockingStub.sayHello(request);
