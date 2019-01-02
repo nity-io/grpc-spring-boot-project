@@ -37,12 +37,23 @@
             <artifactId>spring-boot-starter</artifactId>
             <!--<scope>true</scope>-->
         </dependency>
+        <!--自动生成spring-configuration-metadata.json-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <!-- gRPC -->
-        <!--<dependency>-->
-            <!--<groupId>io.grpc</groupId>-->
-            <!--<artifactId>grpc-netty</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-tcnative-boringssl-static</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-services</artifactId>

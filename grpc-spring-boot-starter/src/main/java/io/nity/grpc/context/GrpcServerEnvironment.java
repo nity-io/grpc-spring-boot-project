@@ -19,7 +19,7 @@ public class GrpcServerEnvironment implements EnvironmentPostProcessor {
         Integer configuredPort = environment.getProperty("grpc.server.port", Integer.class);
 
         if (null == configuredPort) {
-            properties.put(LocalRunningGrpcPort.propertyName, GrpcProperties.DEFAULT_GRPC_PORT);
+            properties.put(LocalRunningGrpcPort.propertyName, GrpcProperties.DEFAULT_SERVER_PORT);
         } else if (0 == configuredPort) {
             properties.put(LocalRunningGrpcPort.propertyName, SocketUtils.findAvailableTcpPort());
         } else {
