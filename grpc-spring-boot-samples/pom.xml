@@ -30,8 +30,28 @@
     <name>gRPC Spring Boot Samples</name>
     <description>gRPC Spring Boot Samples</description>
     <modules>
-        <module>grpc-spring-boot-sample-proto</module>
-        <module>grpc-spring-boot-sample-server</module>
-        <module>grpc-spring-boot-sample-client</module>
+        <module>grpc-spring-boot-sample-inprocess</module>
+        <module>grpc-spring-boot-sample-server-simple</module>
+        <module>grpc-spring-boot-sample-client-simple</module>
+        <module>grpc-spring-boot-sample-server-tls</module>
+        <module>grpc-spring-boot-sample-client-tls</module>
     </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

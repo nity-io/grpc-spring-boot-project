@@ -398,7 +398,7 @@
                     </systemProperties>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
                 <version>${apache-rat-plugin.version}</version>
@@ -426,7 +426,7 @@
                                 <exclude>**/*.md</exclude>
                                 <exclude>.git/</exclude>
                                 <exclude>.gitignore</exclude>
-                                <!-- ASF jenkins box puts the Maven repo in our root directory. -->
+                                &lt;!&ndash; ASF jenkins box puts the Maven repo in our root directory. &ndash;&gt;
                                 <exclude>.repository/</exclude>
                                 <exclude>**/.settings/*</exclude>
                                 <exclude>**/.classpath</exclude>
@@ -450,7 +450,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

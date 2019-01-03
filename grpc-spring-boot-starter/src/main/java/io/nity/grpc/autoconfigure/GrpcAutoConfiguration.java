@@ -129,12 +129,21 @@ public class GrpcAutoConfiguration {
     }
 
     private SslContextBuilder getSslContextBuilder(String certChainFilePath, String privateKeyFilePath, String trustCertCollectionFilePath) {
-        SslContextBuilder sslClientContextBuilder = SslContextBuilder.forServer(new File(certChainFilePath), new File(privateKeyFilePath));
+        File certChainFile = new File(certChainFilePath);
+        File privateKeyFile = new File(privateKeyFilePath);
+        log.info("loading certChainFile:{}", certChainFile.getAbsolutePath());
+        log.info("loading privateKeyFile:{}", privateKeyFile.getAbsolutePath());
+        SslContextBuilder sslClientContextBuilder = SslContextBuilder.forServer(certChainFile, privateKeyFile);
+
         if (trustCertCollectionFilePath != null) {
-            sslClientContextBuilder.trustManager(new File(trustCertCollectionFilePath));
+            File trustCertCollectionFile = new File(trustCertCollectionFilePath);
+            log.info("loading trustCertCollectionFile:{}", trustCertCollectionFile.getAbsolutePath());
+            sslClientContextBuilder.trustManager(trustCertCollectionFile);
             sslClientContextBuilder.clientAuth(ClientAuth.REQUIRE);
         }
+
         sslClientContextBuilder.protocols("TLSv1.2");
+
         return GrpcSslContexts.configure(sslClientContextBuilder, SslProvider.OPENSSL);
     }
 }
