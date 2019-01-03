@@ -4,7 +4,7 @@ import io.grpc.*;
 import io.grpc.health.v1.HealthCheckResponse;
 import io.grpc.protobuf.services.ProtoReflectionService;
 import io.grpc.services.HealthStatusManager;
-import io.nity.grpc.autoconfigure.GrpcProperties;
+import io.nity.grpc.autoconfigure.GrpcServerProperties;
 import io.nity.grpc.context.GrpcServerInitializedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class GrpcServerRunner implements CommandLineRunner, DisposableBean {
     private AbstractApplicationContext applicationContext;
 
     @Autowired
-    private GrpcProperties grpcProperties;
+    private GrpcServerProperties grpcProperties;
 
     private GrpcServerBuilderConfigurer configurer;
 

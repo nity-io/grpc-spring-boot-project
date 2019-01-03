@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>io.nity.grpc</groupId>
-            <artifactId>grpc-spring-boot-starter</artifactId>
+            <artifactId>grpc-server-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 

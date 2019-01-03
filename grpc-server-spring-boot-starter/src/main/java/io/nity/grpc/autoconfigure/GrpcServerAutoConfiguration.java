@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
@@ -29,25 +28,24 @@ import java.net.InetSocketAddress;
 
 @AutoConfigureOrder
 @ConditionalOnBean(annotation = GrpcService.class)
-@EnableConfigurationProperties(GrpcProperties.class)
-public class GrpcAutoConfiguration {
+@EnableConfigurationProperties(GrpcServerProperties.class)
+public class GrpcServerAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(GrpcAutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(GrpcServerAutoConfiguration.class);
 
     @LocalRunningGrpcPort
     private int port;
 
     @Autowired
-    private GrpcProperties grpcProperties;
+    private GrpcServerProperties grpcProperties;
 
     @Bean
-    @ConditionalOnProperty(value = "grpc.server.enabled", havingValue = "true", matchIfMissing = true)
     public GrpcServerRunner grpcServerRunner(GrpcServerBuilderConfigurer configurer) throws SSLException {
-        GrpcProperties.ServerProperties server = grpcProperties.getServer();
+        GrpcServerProperties.ServerProperties server = grpcProperties.getServer();
 
         String model = server.getModel();
 
-        if (GrpcProperties.SERVER_MODEL_IN_PROCESS.equals(model)) {
+        if (GrpcServerProperties.SERVER_MODEL_IN_PROCESS.equals(model)) {
             String inProcessServerName = server.getInProcessServerName();
 
             if (!StringUtils.hasText(inProcessServerName)) {
@@ -57,11 +55,11 @@ public class GrpcAutoConfiguration {
 
             log.warn("gRPC Server will run in InProcess model. Please only use in testing");
             return new GrpcServerRunner(configurer, InProcessServerBuilder.forName(inProcessServerName));
-        } else if (GrpcProperties.SERVER_MODEL_SIMPLE.equals(model)) {
+        } else if (GrpcServerProperties.SERVER_MODEL_SIMPLE.equals(model)) {
             log.info("gRPC Server will run without tls. recommend only use in internal service");
             log.info("gRPC Server will listen on port {}", port);
             return new GrpcServerRunner(configurer, ServerBuilder.forPort(port));
-        } else if (GrpcProperties.SERVER_MODEL_TLS.equals(model)) {
+        } else if (GrpcServerProperties.SERVER_MODEL_TLS.equals(model)) {
             String host = server.getHost();
             String certChainFilePath = server.getCertChainFilePath();
             String privateKeyFilePath = server.getPrivateKeyFilePath();
@@ -86,7 +84,7 @@ public class GrpcAutoConfiguration {
             serverBuilder.sslContext(getSslContextBuilder(certChainFilePath, privateKeyFilePath, null).build());
 
             return new GrpcServerRunner(configurer, serverBuilder);
-        } else if (GrpcProperties.SERVER_MODEL_TLS_MUTUAL.equals(model)) {
+        } else if (GrpcServerProperties.SERVER_MODEL_TLS_MUTUAL.equals(model)) {
             String host = server.getHost();
             String certChainFilePath = server.getCertChainFilePath();
             String privateKeyFilePath = server.getPrivateKeyFilePath();

@@ -30,6 +30,8 @@
 
     <modules>
         <module>grpc-spring-boot-parent</module>
+        <module>grpc-server-spring-boot-starter</module>
+        <module>grpc-client-spring-boot-starter</module>
         <module>grpc-spring-boot-starter</module>
         <module>grpc-spring-boot-samples</module>
     </modules>

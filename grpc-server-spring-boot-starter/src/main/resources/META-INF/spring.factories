@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.nity.grpc.autoconfigure.GrpcServerAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=\
+io.nity.grpc.context.GrpcServerEnvironment

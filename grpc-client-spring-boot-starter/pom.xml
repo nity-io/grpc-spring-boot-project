@@ -25,21 +25,38 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>grpc-spring-boot-starter</artifactId>
+    <artifactId>grpc-client-spring-boot-starter</artifactId>
     <packaging>jar</packaging>
-    <name>gRPC Spring Boot Starter</name>
-    <description>gRPC Spring Boot Starter</description>
+    <name>gRPC Client Spring Boot Starter</name>
+    <description>gRPC Client Spring Boot Starter</description>
 
     <dependencies>
+        <!-- Spring Boot dependencies -->
         <dependency>
-            <groupId>io.nity.grpc</groupId>
-            <artifactId>grpc-server-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <!--<scope>true</scope>-->
+        </dependency>
+        <!--自动生成spring-configuration-metadata.json-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- gRPC -->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.nity.grpc</groupId>
-            <artifactId>grpc-client-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-tcnative-boringssl-static</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-services</artifactId>
         </dependency>
     </dependencies>
 </project>

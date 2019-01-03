@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 @ConfigurationProperties(prefix = "grpc", ignoreUnknownFields = true)
-public class GrpcProperties {
+public class GrpcServerProperties {
 
     public static final int DEFAULT_SERVER_PORT = 50051;
 
@@ -33,15 +33,7 @@ public class GrpcProperties {
     @NestedConfigurationProperty
     private final ServerProperties server = new ServerProperties();
 
-    @NestedConfigurationProperty
-    private final StubProperties stub = new StubProperties();
-
     public class ServerProperties {
-
-        /**
-         * Enables the embedded grpc server.
-         */
-        private boolean enabled = true;
 
         /**
          * gRPC running model, default simple
@@ -90,14 +82,6 @@ public class GrpcProperties {
 
         public void setPort(int port) {
             this.port = port;
-        }
-
-        public boolean isEnabled() {
-            return enabled;
-        }
-
-        public void setEnabled(boolean enabled) {
-            this.enabled = enabled;
         }
 
         public String getInProcessServerName() {
@@ -157,107 +141,8 @@ public class GrpcProperties {
         }
     }
 
-    public class StubProperties {
-
-        /**
-         * Enables the embedded grpc server.
-         */
-        private boolean enabled = true;
-
-        /**
-         * gRPC running model, default simple
-         */
-        private String model = SERVER_MODEL_SIMPLE;
-
-        /**
-         * In process server name.
-         */
-        private String inProcessServerName;
-
-        /**
-         * gRPC stub host
-         */
-        private String host = "";
-
-        /**
-         * gRPC stub port
-         */
-        private int port = DEFAULT_SERVER_PORT;
-
-        private String trustCertCollectionFilePath;
-        private String clientCertChainFilePath;
-        private String clientPrivateKeyFilePath;
-
-        public String getHost() {
-            return host;
-        }
-
-        public void setHost(String host) {
-            this.host = host;
-        }
-
-        public int getPort() {
-            return port;
-        }
-
-        public void setPort(int port) {
-            this.port = port;
-        }
-
-        public String getModel() {
-            return model;
-        }
-
-        public void setModel(String model) {
-            this.model = model;
-        }
-
-        public boolean isEnabled() {
-            return enabled;
-        }
-
-        public void setEnabled(boolean enabled) {
-            this.enabled = enabled;
-        }
-
-        public String getTrustCertCollectionFilePath() {
-            return trustCertCollectionFilePath;
-        }
-
-        public void setTrustCertCollectionFilePath(String trustCertCollectionFilePath) {
-            this.trustCertCollectionFilePath = trustCertCollectionFilePath;
-        }
-
-        public String getClientCertChainFilePath() {
-            return clientCertChainFilePath;
-        }
-
-        public void setClientCertChainFilePath(String clientCertChainFilePath) {
-            this.clientCertChainFilePath = clientCertChainFilePath;
-        }
-
-        public String getClientPrivateKeyFilePath() {
-            return clientPrivateKeyFilePath;
-        }
-
-        public void setClientPrivateKeyFilePath(String clientPrivateKeyFilePath) {
-            this.clientPrivateKeyFilePath = clientPrivateKeyFilePath;
-        }
-
-        public String getInProcessServerName() {
-            return inProcessServerName;
-        }
-
-        public void setInProcessServerName(String inProcessServerName) {
-            this.inProcessServerName = inProcessServerName;
-        }
-    }
-
     public ServerProperties getServer() {
         return server;
     }
 
-    public StubProperties getStub() {
-        return stub;
-    }
 }

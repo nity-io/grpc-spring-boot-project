@@ -1,9 +1,7 @@
-package io.nity.grpc.sample.grpc;
+package io.nity.grpc.autoconfigure;
 
-import io.grpc.Channel;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.inprocess.InProcessChannelBuilder;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NegotiationType;
@@ -11,35 +9,23 @@ import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.nity.grpc.DisposableManagedChannel;
-import io.nity.grpc.autoconfigure.GrpcClientProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import javax.net.ssl.SSLException;
 import java.io.File;
 
-/**
- * grpc存根配置类，完成Channel和所有Stub的初始化
- */
-@Configuration
-@EnableConfigurationProperties(GrpcClientProperties.class)
-public class GrpcStubConfig {
+@AutoConfigureOrder
+public class GrpcClientAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(GrpcStubConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(GrpcClientAutoConfiguration.class);
 
     @Autowired
-    protected GrpcClientProperties grpcProperties;
-
-    @Bean
-    public GreeterGrpc.GreeterBlockingStub getGreeterBlockingStub(Channel channel) {
-        GreeterGrpc.GreeterBlockingStub blockingStub = GreeterGrpc.newBlockingStub(channel);
-        return blockingStub;
-    }
+    private GrpcClientProperties grpcProperties;
 
     @Bean
     public DisposableManagedChannel getChannel() throws SSLException {
