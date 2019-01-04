@@ -25,9 +25,9 @@ public class GrpcClientProperties {
     public static final String SERVER_MODEL_TLS = "tls";
 
     /**
-     * service with TLS with mutual, safely use to talk to external systems
+     * custom Channel
      */
-    public static final String SERVER_MODEL_TLS_MUTUAL = "tlsMutual";
+    public static final String SERVER_MODEL_CUSTOM = "custom";
 
     @NestedConfigurationProperty
     private final StubProperties stub = new StubProperties();

@@ -42,15 +42,15 @@ public class GrpcServerRunner implements CommandLineRunner, DisposableBean {
     @Autowired
     private GrpcServerProperties grpcProperties;
 
+    private final ServerBuilder<?> serverBuilder;
+
     private GrpcServerBuilderConfigurer configurer;
 
     private Server server;
 
-    private final ServerBuilder<?> serverBuilder;
-
-    public GrpcServerRunner(GrpcServerBuilderConfigurer configurer,ServerBuilder<?> serverBuilder) {
-        this.configurer = configurer;
+    public GrpcServerRunner(ServerBuilder<?> serverBuilder, GrpcServerBuilderConfigurer configurer) {
         this.serverBuilder = serverBuilder;
+        this.configurer = configurer;
     }
 
     @Override

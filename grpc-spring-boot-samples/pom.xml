@@ -35,6 +35,8 @@
         <module>grpc-spring-boot-sample-client-simple</module>
         <module>grpc-spring-boot-sample-server-tls</module>
         <module>grpc-spring-boot-sample-client-tls</module>
+        <module>grpc-spring-boot-sample-server-custom</module>
+        <module>grpc-spring-boot-sample-client-custom</module>
     </modules>
 
     <build>

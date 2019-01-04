@@ -3,6 +3,7 @@ package io.nity.grpc.sample.grpc.service;
 import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
+import io.grpc.stub.StreamObserver;
 import io.nity.grpc.GrpcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +16,7 @@ public class GreeterGrpcService extends GreeterGrpc.GreeterImplBase {
     private static final Logger log = LoggerFactory.getLogger(GreeterGrpcService.class);
 
     @Override
-    public void sayHello(HelloRequest request,
-                         io.grpc.stub.StreamObserver<HelloReply> responseObserver) {
+    public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
         log.info("GreeterGrpcService_sayHello_request:{}", request.toString());
 
         String name = request.getName();

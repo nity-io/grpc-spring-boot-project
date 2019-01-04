@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * grpc存根配置类，完成Channel和所有Stub的初始化
+ * grpc存根配置类，完成所有Stub的初始化
  */
 @Configuration
 @EnableConfigurationProperties(GrpcClientProperties.class)
