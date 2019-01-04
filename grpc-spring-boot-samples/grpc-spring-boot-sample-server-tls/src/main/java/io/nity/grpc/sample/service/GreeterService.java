@@ -1,7 +1,6 @@
 package io.nity.grpc.sample.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -12,9 +11,9 @@ import java.sql.Timestamp;
 /**
  * 可以按平常的方式使用service
  */
+@Slf4j
 @Service
 public class GreeterService {
-    private static final Logger log = LoggerFactory.getLogger(GreeterService.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -34,4 +33,5 @@ public class GreeterService {
 
         return message;
     }
+
 }

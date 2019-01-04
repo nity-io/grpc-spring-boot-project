@@ -42,7 +42,8 @@
         <protobuf.version>3.5.1</protobuf.version>
         <protoc.version>3.5.1-1</protoc.version>
         <netty.tcnative.version>2.0.17.Final</netty.tcnative.version>
-        
+        <lombok.version>1.18.4</lombok.version>
+
         <!-- Build args -->
         <argline>-server -Xms256m -Xmx512m -XX:PermSize=64m -XX:MaxPermSize=128m -Dfile.encoding=UTF-8
             -Djava.net.preferIPv4Stack=true
@@ -110,6 +111,14 @@
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java-util</artifactId>
                 <version>${protobuf.version}</version>
+            </dependency>
+
+            <!-- Provided -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- Runtime -->
@@ -255,7 +264,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <compilerArgument>-proc:none</compilerArgument>
+                    <!--<compilerArgument>-proc:none</compilerArgument>-->
                     <fork>true</fork>
                     <source>${java.source.version}</source>
                     <target>${java.target.version}</target>

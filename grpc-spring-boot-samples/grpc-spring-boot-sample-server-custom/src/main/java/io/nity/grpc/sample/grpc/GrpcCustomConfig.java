@@ -3,8 +3,7 @@ package io.nity.grpc.sample.grpc;
 import io.grpc.ServerBuilder;
 import io.nity.grpc.GrpcServerBuilderConfigurer;
 import io.nity.grpc.autoconfigure.GrpcServerProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,11 +13,10 @@ import org.springframework.context.annotation.Configuration;
 /**
  * grpc自定义配置类
  */
+@Slf4j
 @Configuration
 @EnableConfigurationProperties(GrpcServerProperties.class)
 public class GrpcCustomConfig {
-
-    private static final Logger log = LoggerFactory.getLogger(GrpcCustomConfig.class);
 
     @Autowired
     protected GrpcServerProperties grpcServerProperties;

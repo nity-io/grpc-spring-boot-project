@@ -3,18 +3,16 @@ package io.nity.grpc.autoconfigure;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.nity.grpc.DisposableManagedChannel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 
+@Slf4j
 @AutoConfigureOrder
 public class GrpcClientSimpleAutoConfiguration {
-
-    private static final Logger log = LoggerFactory.getLogger(GrpcClientSimpleAutoConfiguration.class);
 
     @Autowired
     private GrpcClientProperties grpcProperties;

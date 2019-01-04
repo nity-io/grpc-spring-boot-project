@@ -8,10 +8,9 @@ import io.grpc.stub.ClientCallStreamObserver;
 import io.grpc.stub.ClientResponseObserver;
 import io.grpc.stub.ServerCallStreamObserver;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
@@ -24,8 +23,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.mockito.AdditionalAnswers.delegatesTo;
 import static org.mockito.Mockito.mock;
 
+@Slf4j
 public class StreamingGreeterStubTest extends StubTestBase {
-    private static final Logger log = LoggerFactory.getLogger(StreamingGreeterStubTest.class);
 
     @Autowired
     private StreamingGreeterGrpc.StreamingGreeterStub streamingGreeterStub;

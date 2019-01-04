@@ -5,12 +5,10 @@ import io.grpc.examples.manualflowcontrol.HelloRequest;
 import io.grpc.examples.manualflowcontrol.StreamingGreeterGrpc;
 import io.grpc.stub.ClientCallStreamObserver;
 import io.grpc.stub.ClientResponseObserver;
-import io.nity.grpc.sample.grpc.service.StreamingGreeterGrpcService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -18,8 +16,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
 public class StreamingGreeterGrpcServiceTest extends GrpcServiceBaseTest {
-    private static final Logger log = LoggerFactory.getLogger(StreamingGreeterGrpcService.class);
 
     private StreamingGreeterGrpc.StreamingGreeterStub streamingGreeterStub;
 

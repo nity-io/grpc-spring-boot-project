@@ -6,8 +6,7 @@ import io.grpc.protobuf.services.ProtoReflectionService;
 import io.grpc.services.HealthStatusManager;
 import io.nity.grpc.autoconfigure.GrpcServerProperties;
 import io.nity.grpc.context.GrpcServerInitializedEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,8 @@ import java.util.stream.Stream;
 /**
  * Hosts embedded gRPC server.
  */
+@Slf4j
 public class GrpcServerRunner implements CommandLineRunner, DisposableBean {
-
-    private static final Logger log = LoggerFactory.getLogger(GrpcServerRunner.class);
 
     @Autowired
     private HealthStatusManager healthStatusManager;

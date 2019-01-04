@@ -5,8 +5,7 @@ import io.grpc.examples.manualflowcontrol.StreamingGreeterGrpc;
 import io.grpc.stub.ClientCallStreamObserver;
 import io.grpc.stub.ClientResponseObserver;
 import io.grpc.stub.StreamObserver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Iterator;
 import java.util.List;
 
+@Slf4j
 @RestController
 public class StreamingGreeterController {
-    private static final Logger log = LoggerFactory.getLogger(StreamingGreeterController.class);
 
     @Autowired
     private StreamingGreeterGrpc.StreamingGreeterStub streamingGreeterStub;

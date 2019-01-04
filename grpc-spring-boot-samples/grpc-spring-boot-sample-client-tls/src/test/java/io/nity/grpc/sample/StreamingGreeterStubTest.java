@@ -3,10 +3,9 @@ package io.nity.grpc.sample;
 import io.grpc.examples.manualflowcontrol.StreamingGreeterGrpc;
 import io.grpc.stub.ClientCallStreamObserver;
 import io.grpc.stub.ClientResponseObserver;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
@@ -15,8 +14,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
 public class StreamingGreeterStubTest extends StubTestBase {
-    private static final Logger log = LoggerFactory.getLogger(StreamingGreeterStubTest.class);
 
     @Autowired
     private StreamingGreeterGrpc.StreamingGreeterStub streamingGreeterStub;

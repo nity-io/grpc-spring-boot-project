@@ -1,8 +1,7 @@
 package io.nity.grpc;
 
 import io.grpc.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 
 import java.util.concurrent.TimeUnit;
@@ -10,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * 优雅关闭gRPC连接
  */
+@Slf4j
 public class DisposableManagedChannel extends Channel implements DisposableBean {
-    private static final Logger logger = LoggerFactory.getLogger(DisposableManagedChannel.class);
 
     private ManagedChannel channel;
 
@@ -31,7 +30,8 @@ public class DisposableManagedChannel extends Channel implements DisposableBean 
 
     @Override
     public void destroy() throws Exception {
-        logger.info("Shutting down gRPC channel ...");
+        log.info("Shutting down gRPC channel ...");
         channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
     }
+
 }

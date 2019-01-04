@@ -9,8 +9,7 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslProvider;
 import io.nity.grpc.GrpcService;
 import io.nity.grpc.context.LocalRunningGrpcPort;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,11 +21,10 @@ import javax.net.ssl.SSLException;
 import java.io.File;
 import java.net.InetSocketAddress;
 
+@Slf4j
 @ConditionalOnBean(annotation = GrpcService.class)
 @EnableConfigurationProperties(GrpcServerProperties.class)
 public class GrpcServerBuilderTlsConfiguration {
-
-    private static final Logger log = LoggerFactory.getLogger(GrpcServerBuilderTlsConfiguration.class);
 
     @LocalRunningGrpcPort
     private int port;

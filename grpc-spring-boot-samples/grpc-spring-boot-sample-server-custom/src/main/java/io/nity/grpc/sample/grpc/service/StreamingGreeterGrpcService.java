@@ -8,17 +8,16 @@ import io.grpc.examples.manualflowcontrol.StreamingGreeterGrpc;
 import io.grpc.stub.ServerCallStreamObserver;
 import io.grpc.stub.StreamObserver;
 import io.nity.grpc.GrpcService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * gRPC服务端实现，接收到数据后可交给业务service处理
  */
+@Slf4j
 @GrpcService
 public class StreamingGreeterGrpcService extends StreamingGreeterGrpc.StreamingGreeterImplBase {
-    private static final Logger log = LoggerFactory.getLogger(StreamingGreeterGrpcService.class);
 
     @Override
     public io.grpc.stub.StreamObserver<HelloRequest> sayHelloStreaming(io.grpc.stub.StreamObserver<HelloReply> responseObserver) {

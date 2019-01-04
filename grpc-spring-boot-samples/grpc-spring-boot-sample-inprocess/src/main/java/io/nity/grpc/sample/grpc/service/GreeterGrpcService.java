@@ -5,15 +5,14 @@ import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.stub.StreamObserver;
 import io.nity.grpc.GrpcService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * gRPC服务端实现，接收到数据后可交给业务service处理
  */
+@Slf4j
 @GrpcService
 public class GreeterGrpcService extends GreeterGrpc.GreeterImplBase {
-    private static final Logger log = LoggerFactory.getLogger(GreeterGrpcService.class);
 
     @Override
     public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {

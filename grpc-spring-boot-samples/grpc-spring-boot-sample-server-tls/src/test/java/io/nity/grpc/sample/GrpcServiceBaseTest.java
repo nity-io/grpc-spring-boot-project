@@ -7,11 +7,10 @@ import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.nity.grpc.context.LocalRunningGrpcPort;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
@@ -22,10 +21,10 @@ import javax.net.ssl.SSLException;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SampleServerTlsApp.class)
 public abstract class GrpcServiceBaseTest {
-    private static final Logger log = LoggerFactory.getLogger(GrpcServiceBaseTest.class);
 
     @Autowired
     protected Environment environment;

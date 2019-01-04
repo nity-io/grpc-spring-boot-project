@@ -4,16 +4,15 @@ import io.grpc.Metadata;
 import io.grpc.ServerCall;
 import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import io.nity.grpc.GrpcGlobalInterceptor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 全局拦截器，对所有gRPC service生效
  */
+@Slf4j
 @GrpcGlobalInterceptor
 public class GlobalGrpcInterceptor implements ServerInterceptor {
-    private static final Logger log = LoggerFactory.getLogger(GlobalGrpcInterceptor.class);
 
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
@@ -33,4 +32,5 @@ public class GlobalGrpcInterceptor implements ServerInterceptor {
 
         return next.startCall(call, headers);
     }
+
 }

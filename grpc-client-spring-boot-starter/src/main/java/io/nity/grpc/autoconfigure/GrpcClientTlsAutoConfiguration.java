@@ -7,8 +7,7 @@ import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.nity.grpc.DisposableManagedChannel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,10 +17,9 @@ import org.springframework.util.StringUtils;
 import javax.net.ssl.SSLException;
 import java.io.File;
 
+@Slf4j
 @AutoConfigureOrder
 public class GrpcClientTlsAutoConfiguration {
-
-    private static final Logger log = LoggerFactory.getLogger(GrpcClientTlsAutoConfiguration.class);
 
     @Autowired
     private GrpcClientProperties grpcProperties;
