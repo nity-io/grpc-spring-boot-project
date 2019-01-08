@@ -15,15 +15,14 @@ import org.springframework.util.StringUtils;
 public class GrpcClientSimpleAutoConfiguration {
 
     @Autowired
-    private GrpcClientProperties grpcProperties;
+    private GrpcClientProperties clientProperties;
 
     @Bean
-    @ConditionalOnProperty(value = "grpc.stub.model", havingValue = GrpcClientProperties.SERVER_MODEL_SIMPLE)
+    @ConditionalOnProperty(value = "grpc.client.model", havingValue = GrpcClientProperties.SERVER_MODEL_SIMPLE)
     public DisposableManagedChannel getChannel() {
-        GrpcClientProperties.StubProperties stub = grpcProperties.getStub();
-        int port = stub.getPort();
+        int port = clientProperties.getPort();
         ManagedChannel channel;
-        String host = stub.getHost();
+        String host = clientProperties.getHost();
 
         if (!StringUtils.hasText(host)) {
             log.error("please config required property [host] for simple model");

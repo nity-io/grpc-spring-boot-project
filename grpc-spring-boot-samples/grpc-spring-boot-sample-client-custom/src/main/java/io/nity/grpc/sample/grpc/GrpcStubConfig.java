@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 public class GrpcStubConfig {
 
     @Autowired
-    protected GrpcClientProperties grpcClientProperties;
+    protected GrpcClientProperties clientProperties;
 
     @Bean
     public GreeterGrpc.GreeterBlockingStub getGreeterBlockingStub(Channel channel) {
@@ -38,12 +38,11 @@ public class GrpcStubConfig {
     }
 
     @Bean
-    @ConditionalOnProperty(value = "grpc.stub.model", havingValue = GrpcClientProperties.SERVER_MODEL_CUSTOM)
+    @ConditionalOnProperty(value = "grpc.client.model", havingValue = GrpcClientProperties.SERVER_MODEL_CUSTOM)
     public DisposableManagedChannel getChannel() {
-        GrpcClientProperties.StubProperties stub = grpcClientProperties.getStub();
-        int port = stub.getPort();
+        int port = clientProperties.getPort();
         ManagedChannel channel;
-        String host = stub.getHost();
+        String host = clientProperties.getHost();
 
         log.info("will create custom channel");
         log.info("creating channel on {}:{}", host, port);

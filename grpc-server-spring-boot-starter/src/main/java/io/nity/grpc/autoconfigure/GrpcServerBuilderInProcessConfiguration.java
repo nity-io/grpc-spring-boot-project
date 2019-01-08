@@ -9,23 +9,24 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 @Slf4j
+@Configuration
 @ConditionalOnBean(annotation = GrpcService.class)
 @EnableConfigurationProperties(GrpcServerProperties.class)
 public class GrpcServerBuilderInProcessConfiguration {
 
     @Autowired
-    private GrpcServerProperties grpcProperties;
+    private GrpcServerProperties serverProperties;
 
     @Bean
     @ConditionalOnProperty(value = "grpc.server.model", havingValue = GrpcServerProperties.SERVER_MODEL_IN_PROCESS)
     public ServerBuilder getServerBuilder() {
-        GrpcServerProperties.ServerProperties server = grpcProperties.getServer();
         ServerBuilder serverBuilder;
 
-        String inProcessServerName = server.getInProcessServerName();
+        String inProcessServerName = serverProperties.getInProcessServerName();
 
         if (!StringUtils.hasText(inProcessServerName)) {
             log.error("please config required property [inProcessServerName] for InProcess model");

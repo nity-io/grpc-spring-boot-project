@@ -15,16 +15,14 @@ import org.springframework.util.StringUtils;
 public class GrpcClientInProcessAutoConfiguration {
 
     @Autowired
-    private GrpcClientProperties grpcProperties;
+    private GrpcClientProperties clientProperties;
 
     @Bean
-    @ConditionalOnProperty(value = "grpc.stub.model", havingValue = GrpcClientProperties.SERVER_MODEL_IN_PROCESS)
+    @ConditionalOnProperty(value = "grpc.client.model", havingValue = GrpcClientProperties.SERVER_MODEL_IN_PROCESS)
     public DisposableManagedChannel getChannel() {
-        GrpcClientProperties.StubProperties stub = grpcProperties.getStub();
-
         ManagedChannel channel;
 
-        String inProcessServerName = stub.getInProcessServerName();
+        String inProcessServerName = clientProperties.getInProcessServerName();
 
         if (!StringUtils.hasText(inProcessServerName)) {
             log.error("please config required property [inProcessServerName] for InProcess model");

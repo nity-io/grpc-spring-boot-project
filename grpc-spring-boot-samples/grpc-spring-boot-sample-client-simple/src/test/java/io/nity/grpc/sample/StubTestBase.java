@@ -36,7 +36,7 @@ public abstract class StubTestBase {
 
     @Before
     public void setUp() throws Exception {
-        int port = environment.getProperty("grpc.stub.port", Integer.class, 50051);
+        int port = environment.getProperty("grpc.client.port", Integer.class, 50051);
         BindableService serviceImpl = makeServiceImpl();
         Server server = ServerBuilder.forPort(port)
                 .addService(serviceImpl)

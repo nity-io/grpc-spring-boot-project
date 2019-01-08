@@ -22,17 +22,16 @@ import java.io.File;
 public class GrpcClientTlsAutoConfiguration {
 
     @Autowired
-    private GrpcClientProperties grpcProperties;
+    private GrpcClientProperties clientProperties;
 
     @Bean
-    @ConditionalOnProperty(value = "grpc.stub.model", havingValue = GrpcClientProperties.SERVER_MODEL_TLS)
+    @ConditionalOnProperty(value = "grpc.client.model", havingValue = GrpcClientProperties.SERVER_MODEL_TLS)
     public DisposableManagedChannel getChannel() throws SSLException {
-        GrpcClientProperties.StubProperties stub = grpcProperties.getStub();
-        int port = stub.getPort();
+        int port = clientProperties.getPort();
         ManagedChannel channel;
 
-        String host = stub.getHost();
-        String trustCertCollectionFilePath = stub.getTrustCertCollectionFilePath();
+        String host = clientProperties.getHost();
+        String trustCertCollectionFilePath = clientProperties.getTrustCertCollectionFilePath();
 
         if (!StringUtils.hasText(host)) {
             log.error("please config required property [host] for Tls model");

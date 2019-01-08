@@ -12,8 +12,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Slf4j
+@Configuration
 @ConditionalOnBean(annotation = GrpcService.class)
 @EnableConfigurationProperties(GrpcServerProperties.class)
 public class GrpcServerAutoConfiguration {
@@ -22,7 +24,7 @@ public class GrpcServerAutoConfiguration {
     private int port;
 
     @Autowired
-    private GrpcServerProperties grpcProperties;
+    private GrpcServerProperties serverProperties;
 
     @Bean
     public GrpcServerRunner grpcServerRunner(ServerBuilder serverBuilder, GrpcServerBuilderConfigurer configurer) {

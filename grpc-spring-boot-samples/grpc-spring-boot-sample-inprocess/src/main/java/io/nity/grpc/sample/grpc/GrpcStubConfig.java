@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 public class GrpcStubConfig {
 
     @Autowired
-    protected GrpcClientProperties grpcProperties;
+    protected GrpcClientProperties clientProperties;
 
     @Bean
     public GreeterGrpc.GreeterBlockingStub getGreeterBlockingStub(Channel channel) {

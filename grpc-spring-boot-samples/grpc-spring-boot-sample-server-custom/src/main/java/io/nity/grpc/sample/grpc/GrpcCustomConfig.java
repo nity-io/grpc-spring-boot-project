@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 public class GrpcCustomConfig {
 
     @Autowired
-    protected GrpcServerProperties grpcServerProperties;
+    protected GrpcServerProperties serverProperties;
 
     /**
      * custom模式下ServerBuilder自定义
@@ -27,7 +27,7 @@ public class GrpcCustomConfig {
     @Bean
     @ConditionalOnProperty(value = "grpc.server.model", havingValue = GrpcServerProperties.SERVER_MODEL_CUSTOM)
     public ServerBuilder getServerBuilder() {
-        int port = grpcServerProperties.getServer().getPort();
+        int port = serverProperties.getPort();
         ServerBuilder<?> serverBuilder = ServerBuilder.forPort(port);
         return serverBuilder;
     }

@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import javax.net.ssl.SSLException;
@@ -22,6 +23,7 @@ import java.io.File;
 import java.net.InetSocketAddress;
 
 @Slf4j
+@Configuration
 @ConditionalOnBean(annotation = GrpcService.class)
 @EnableConfigurationProperties(GrpcServerProperties.class)
 public class GrpcServerBuilderTlsConfiguration {
@@ -30,17 +32,16 @@ public class GrpcServerBuilderTlsConfiguration {
     private int port;
 
     @Autowired
-    private GrpcServerProperties grpcProperties;
+    private GrpcServerProperties serverProperties;
 
     @Bean
     @ConditionalOnProperty(value = "grpc.server.model", havingValue = GrpcServerProperties.SERVER_MODEL_TLS)
     public ServerBuilder getServerBuilder() throws SSLException {
-        GrpcServerProperties.ServerProperties server = grpcProperties.getServer();
         ServerBuilder serverBuilder;
 
-        String host = server.getHost();
-        String certChainFilePath = server.getCertChainFilePath();
-        String privateKeyFilePath = server.getPrivateKeyFilePath();
+        String host = serverProperties.getHost();
+        String certChainFilePath = serverProperties.getCertChainFilePath();
+        String privateKeyFilePath = serverProperties.getPrivateKeyFilePath();
 
         if (!StringUtils.hasText(host)) {
             log.error("please config required property [host] for Tls model");
