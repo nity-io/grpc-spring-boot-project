@@ -33,7 +33,7 @@ public class GrpcCustomConfig {
     }
 
     /**
-     * ServerBuilder配置器，在serverBuilder.build().start()前调用，使用所有模式
+     * ServerBuilder配置器，在serverBuilder.build().start()前调用，适用所有模式
      */
     @Bean
     public GrpcServerBuilderConfigurer serverBuilderConfigurer() {
