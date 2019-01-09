@@ -1,0 +1,7 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.nity.grpc.autoconfigure.GrpcClientAutoConfiguration,\
+io.nity.grpc.autoconfigure.GrpcClientInProcessAutoConfiguration,\
+io.nity.grpc.autoconfigure.GrpcClientSimpleAutoConfiguration,\
+io.nity.grpc.autoconfigure.GrpcClientTlsAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=\
+io.nity.grpc.context.GrpcClientEnvironment
