@@ -28,13 +28,25 @@
     <description>gRPC Spring Boot Project</description>
     <url>https://github.com/nity-io/grpc-spring-boot-project</url>
 
-    <modules>
-        <module>grpc-spring-boot-parent</module>
-        <module>grpc-server-spring-boot-starter</module>
-        <module>grpc-client-spring-boot-starter</module>
-        <module>grpc-spring-boot-starter</module>
-        <module>grpc-spring-boot-samples</module>
-    </modules>
+    <properties>
+        <apache-rat-plugin.version>0.12</apache-rat-plugin.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <id>Nity gRPC</id>
+            <name>Nity gRPC</name>
+            <url>http://grpc.nity.io/</url>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <organization>
         <name>Nity</name>
@@ -44,14 +56,97 @@
     <scm>
         <url>https://github.com/nity-io/grpc-spring-boot-project</url>
         <connection>scm:git:git:////github.com/nity-io/grpc-spring-boot-project.git</connection>
-        <developerConnection>scm:git:ssh://git@//github.com/nity-io/grpc-spring-boot-project.git
-        </developerConnection>
+        <developerConnection>scm:git:ssh://git@//github.com/nity-io/grpc-spring-boot-project.git</developerConnection>
     </scm>
 
     <issueManagement>
         <system>Github</system>
         <url>https://github.com/nity-io/grpc-spring-boot-project/issues</url>
     </issueManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <modules>
+        <module>grpc-spring-boot-parent</module>
+        <module>grpc-server-spring-boot-starter</module>
+        <module>grpc-client-spring-boot-starter</module>
+        <module>grpc-spring-boot-starter</module>
+        <module>grpc-spring-boot-samples</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <version>${apache-rat-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>verify.rat</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*.versionsBackup</exclude>
+                                <exclude>**/.idea/</exclude>
+                                <exclude>**/*.iml</exclude>
+                                <exclude>**/*.txt</exclude>
+                                <exclude>**/*.load</exclude>
+                                <exclude>**/*.flex</exclude>
+                                <exclude>**/*.fc</exclude>
+                                <exclude>**/*.javascript</exclude>
+                                <exclude>**/*.properties</exclude>
+                                <exclude>**/*.thrift</exclude>
+                                <exclude>**/*.sh</exclude>
+                                <exclude>**/*.bat</exclude>
+                                <exclude>**/*.md</exclude>
+                                <exclude>.git/</exclude>
+                                <exclude>.gitignore</exclude>
+                                <!-- ASF jenkins box puts the Maven repo in our root directory. -->
+                                <exclude>.repository/</exclude>
+                                <exclude>**/.settings/*</exclude>
+                                <exclude>**/.classpath</exclude>
+                                <exclude>**/.project</exclude>
+                                <exclude>**/target/**</exclude>
+                                <exclude>**/*.log</exclude>
+                                <exclude>CODE_OF_CONDUCT.md</exclude>
+                                <exclude>.codecov.yml</exclude>
+                                <exclude>.travis.yml</exclude>
+                                <exclude>PULL_REQUEST_TEMPLATE.md</exclude>
+                                <exclude>CONTRIBUTING.md</exclude>
+                                <exclude>README.md</exclude>
+                                <exclude>README_CN.md</exclude>
+                                <exclude>**/codestyle/*</exclude>
+                                <exclude>**/resources/META-INF/**</exclude>
+                                <exclude>**/*.factories</exclude>
+                                <exclude>**/*.provides</exclude>
+                                <exclude>**/*.properties</exclude>
+                                <exclude>**/*.json</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
