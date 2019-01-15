@@ -45,13 +45,13 @@ $ sh grpc-spring-boot-samples/tools/create_openssl_key.sh
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-server-spring-boot-starter</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>0.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1-SNAPSHOT'
+compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1'
 ```
 
 ### Client
@@ -60,13 +60,13 @@ compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1-SNAPSHOT'
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-client-spring-boot-starter</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>0.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1-SNAPSHOT'
+compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1'
 ```
 
 ### Server + Client
@@ -75,13 +75,13 @@ compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1-SNAPSHOT'
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-spring-boot-starter</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>0.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-spring-boot-starter:0.9.1-SNAPSHOT'
+compile 'io.nity.grpc:grpc-spring-boot-starter:0.9.1'
 ```
 
 具体的代码请参照各示例模块。
