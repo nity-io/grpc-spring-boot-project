@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package io.nity.grpc;
+package io.nity.grpc.server;
 
 import io.grpc.*;
 import io.grpc.health.v1.HealthCheckResponse;
 import io.grpc.protobuf.services.ProtoReflectionService;
 import io.grpc.services.HealthStatusManager;
-import io.nity.grpc.autoconfigure.GrpcServerProperties;
-import io.nity.grpc.context.GrpcServerInitializedEvent;
+import io.nity.grpc.server.autoconfigure.GrpcServerProperties;
+import io.nity.grpc.server.context.GrpcServerInitializedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.DisposableBean;
@@ -58,13 +58,13 @@ public class GrpcServerRunner implements CommandLineRunner, DisposableBean {
 
     private final ServerBuilder<?> serverBuilder;
 
-    private GrpcServerBuilderConfigurer configurer;
+    private GrpcServerBuilderConfigurer serverBuilderConfigurer;
 
     private Server server;
 
-    public GrpcServerRunner(ServerBuilder<?> serverBuilder, GrpcServerBuilderConfigurer configurer) {
+    public GrpcServerRunner(ServerBuilder<?> serverBuilder, GrpcServerBuilderConfigurer serverBuilderConfigurer) {
         this.serverBuilder = serverBuilder;
-        this.configurer = configurer;
+        this.serverBuilderConfigurer = serverBuilderConfigurer;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class GrpcServerRunner implements CommandLineRunner, DisposableBean {
             log.info("'{}' service has been registered", ProtoReflectionService.class.getName());
         }
 
-        configurer.configure(serverBuilder);
+        serverBuilderConfigurer.configure(serverBuilder);
         server = serverBuilder.build().start();
         applicationContext.publishEvent(new GrpcServerInitializedEvent(server));
 

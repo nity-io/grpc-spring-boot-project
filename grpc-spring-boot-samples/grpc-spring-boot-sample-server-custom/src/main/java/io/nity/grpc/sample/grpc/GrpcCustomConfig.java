@@ -17,8 +17,8 @@
 package io.nity.grpc.sample.grpc;
 
 import io.grpc.ServerBuilder;
-import io.nity.grpc.GrpcServerBuilderConfigurer;
-import io.nity.grpc.autoconfigure.GrpcServerProperties;
+import io.nity.grpc.server.GrpcServerBuilderConfigurer;
+import io.nity.grpc.server.autoconfigure.GrpcServerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

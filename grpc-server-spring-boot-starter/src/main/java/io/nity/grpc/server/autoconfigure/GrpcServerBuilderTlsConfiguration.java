@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.autoconfigure;
+package io.nity.grpc.server.autoconfigure;
 
 import io.grpc.ServerBuilder;
 import io.grpc.netty.GrpcSslContexts;
@@ -23,8 +23,8 @@ import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslProvider;
-import io.nity.grpc.GrpcService;
-import io.nity.grpc.context.LocalRunningGrpcPort;
+import io.nity.grpc.server.GrpcService;
+import io.nity.grpc.server.context.LocalRunningGrpcPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

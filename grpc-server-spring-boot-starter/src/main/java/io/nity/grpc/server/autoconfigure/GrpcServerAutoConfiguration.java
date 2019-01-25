@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.autoconfigure;
+package io.nity.grpc.server.autoconfigure;
 
 import io.grpc.ServerBuilder;
-import io.nity.grpc.GrpcService;
-import io.nity.grpc.context.LocalRunningGrpcPort;
+import io.grpc.services.HealthStatusManager;
+import io.nity.grpc.server.GrpcServerBuilderConfigurer;
+import io.nity.grpc.server.GrpcServerRunner;
+import io.nity.grpc.server.GrpcService;
+import io.nity.grpc.server.context.LocalRunningGrpcPort;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,21 +34,31 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnBean(annotation = GrpcService.class)
 @EnableConfigurationProperties(GrpcServerProperties.class)
-public class GrpcServerBuilderSimpleConfiguration {
+public class GrpcServerAutoConfiguration {
 
     @LocalRunningGrpcPort
     private int port;
 
+    @Autowired
+    private GrpcServerProperties serverProperties;
+
     @Bean
-    @ConditionalOnProperty(value = "grpc.server.model", havingValue = GrpcServerProperties.SERVER_MODEL_SIMPLE)
-    public ServerBuilder getServerBuilder() {
-        ServerBuilder serverBuilder;
+    public GrpcServerRunner grpcServerRunner(ServerBuilder serverBuilder, GrpcServerBuilderConfigurer serverBuilderConfigurer) {
+        return new GrpcServerRunner(serverBuilder, serverBuilderConfigurer);
+    }
 
-        log.info("gRPC Server will run without tls. recommend only use in internal service");
-        log.info("gRPC Server will listen on port {}", port);
-        serverBuilder = ServerBuilder.forPort(port);
+    @Bean
+    public HealthStatusManager healthStatusManager() {
+        return new HealthStatusManager();
+    }
 
-        return serverBuilder;
+    @Bean
+    @ConditionalOnMissingBean(GrpcServerBuilderConfigurer.class)
+    public GrpcServerBuilderConfigurer defaultServerBuilderConfigurer() {
+        return serverBuilder -> {
+            log.info("configure in defaultServerBuilderConfigurer, no op...");
+            //no op
+        };
     }
 
 }

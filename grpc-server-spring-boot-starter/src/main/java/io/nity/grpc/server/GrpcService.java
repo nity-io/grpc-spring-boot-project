@@ -14,10 +14,22 @@
  * limitations under the License.
  */
 
-package io.nity.grpc;
+package io.nity.grpc.server;
 
-import io.grpc.ServerBuilder;
+import io.grpc.ServerInterceptor;
+import org.springframework.stereotype.Service;
 
-public interface GrpcServerBuilderConfigurer {
-    void configure(ServerBuilder<?> serverBuilder);
+import java.lang.annotation.*;
+
+/**
+ * Marks the annotated class to be registered as grpc-service bean;
+ */
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Service
+public @interface GrpcService {
+    Class<? extends ServerInterceptor>[] interceptors() default {};
+
+    boolean applyGlobalInterceptors() default true;
 }

@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.context;
+package io.nity.grpc.server;
 
-import io.grpc.Server;
-import org.springframework.context.ApplicationEvent;
+import io.grpc.ServerBuilder;
 
-public class GrpcServerInitializedEvent extends ApplicationEvent {
-
-    /**
-     * Create a new ApplicationEvent.
-     *
-     * @param source the object on which the event initially occurred (never {@code null})
-     */
-    public GrpcServerInitializedEvent(Server source) {
-        super(source);
-    }
-
-    public Server getServer() {
-        return (Server) getSource();
-    }
+public interface GrpcServerBuilderConfigurer {
+    void configure(ServerBuilder<?> serverBuilder);
 }

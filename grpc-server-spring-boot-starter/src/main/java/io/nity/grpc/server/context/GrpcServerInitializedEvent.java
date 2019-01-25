@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.context;
+package io.nity.grpc.server.context;
 
-import org.springframework.beans.factory.annotation.Value;
+import io.grpc.Server;
+import org.springframework.context.ApplicationEvent;
 
-import java.lang.annotation.*;
+public class GrpcServerInitializedEvent extends ApplicationEvent {
 
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Value("${" + LocalRunningGrpcPort.propertyName + "}")
-public @interface LocalRunningGrpcPort {
-    String propertyName = "local.grpc.port";
+    /**
+     * Create a new ApplicationEvent.
+     *
+     * @param source the object on which the event initially occurred (never {@code null})
+     */
+    public GrpcServerInitializedEvent(Server source) {
+        super(source);
+    }
+
+    public Server getServer() {
+        return (Server) getSource();
+    }
 }

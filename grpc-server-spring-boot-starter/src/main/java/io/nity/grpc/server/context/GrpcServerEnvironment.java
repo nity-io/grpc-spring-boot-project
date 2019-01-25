@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.context;
+package io.nity.grpc.server.context;
 
-import io.nity.grpc.autoconfigure.GrpcServerProperties;
+import io.nity.grpc.server.autoconfigure.GrpcServerProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;

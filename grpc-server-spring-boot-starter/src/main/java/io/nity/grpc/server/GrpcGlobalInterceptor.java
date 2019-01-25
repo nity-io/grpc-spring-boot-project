@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package io.nity.grpc;
+package io.nity.grpc.server;
 
-import io.grpc.ServerInterceptor;
-import org.springframework.stereotype.Service;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
 /**
- * Marks the annotated class to be registered as grpc-service bean;
+ * Grpc全局拦截器注解
  */
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Service
-public @interface GrpcService {
-    Class<? extends ServerInterceptor>[] interceptors() default {};
+@Component
+public @interface GrpcGlobalInterceptor {
 
-    boolean applyGlobalInterceptors() default true;
 }

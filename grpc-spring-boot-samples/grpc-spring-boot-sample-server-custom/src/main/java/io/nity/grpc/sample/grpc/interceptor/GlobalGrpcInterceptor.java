@@ -20,7 +20,7 @@ import io.grpc.Metadata;
 import io.grpc.ServerCall;
 import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
-import io.nity.grpc.GrpcGlobalInterceptor;
+import io.nity.grpc.server.GrpcGlobalInterceptor;
 import lombok.extern.slf4j.Slf4j;
 
 /**

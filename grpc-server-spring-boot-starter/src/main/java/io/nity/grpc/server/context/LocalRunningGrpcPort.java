@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-package io.nity.grpc;
+package io.nity.grpc.server.context;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.springframework.beans.factory.annotation.Value;
 
-import org.springframework.stereotype.Component;
+import java.lang.annotation.*;
 
-/**
- * Grpc全局拦截器注解
- */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Component
-public @interface GrpcGlobalInterceptor {
-
+@Value("${" + LocalRunningGrpcPort.propertyName + "}")
+public @interface LocalRunningGrpcPort {
+    String propertyName = "local.grpc.port";
 }

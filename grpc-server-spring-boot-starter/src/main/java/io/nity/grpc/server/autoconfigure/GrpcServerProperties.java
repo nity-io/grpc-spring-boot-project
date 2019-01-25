@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.autoconfigure;
+package io.nity.grpc.server.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
