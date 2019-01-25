@@ -54,6 +54,19 @@ $ sh grpc-spring-boot-samples/tools/create_openssl_key.sh
 compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1-SNAPSHOT'
 ```
 
+##### Java
+```java
+@GrpcService
+public class GreeterGrpcService extends GreeterGrpc.GreeterImplBase {
+
+    @Override
+    public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
+        //grpc service implement code
+    }
+
+}
+```
+
 ### Client
 ##### Maven
 ```xml
@@ -67,6 +80,24 @@ compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1-SNAPSHOT'
 ##### Gradle
 ```gradle
 compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1-SNAPSHOT'
+```
+
+##### Java
+```java
+@RestController
+public class GreeterController {
+
+    @GrpcClient("default")
+    private GreeterGrpc.GreeterBlockingStub greeterBlockingStub;
+
+    @RequestMapping(value = {"/greet"})
+    public String greet() {
+        //code...
+        response = greeterBlockingStub.sayHello(request);
+        //code...
+    }
+
+}
 ```
 
 ### Server + Client
