@@ -22,7 +22,7 @@ import io.grpc.netty.NegotiationType;
 import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
-import io.nity.grpc.context.LocalRunningGrpcPort;
+import io.nity.grpc.server.context.LocalRunningGrpcPort;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;

@@ -18,7 +18,7 @@ package io.nity.grpc.sample;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.nity.grpc.context.LocalRunningGrpcPort;
+import io.nity.grpc.server.context.LocalRunningGrpcPort;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;

@@ -54,6 +54,53 @@ $ sh grpc-spring-boot-samples/tools/create_openssl_key.sh
 compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1'
 ```
 
+##### Java
+```java
+@GrpcService
+public class GreeterGrpcService extends GreeterGrpc.GreeterImplBase {
+
+    @Override
+    public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
+        //grpc service implement code
+    }
+
+}
+```
+
+#### 如果需要对Server进一步配置
+1.可创建GrpcServerBuilderConfigurer bean，在configure里对创建好的serverBuilder进一步配置
+```java
+@Configuration
+public class GrpcCustomConfig {
+
+    @Bean
+    public GrpcServerBuilderConfigurer serverBuilderConfigurer() {
+        return serverBuilder -> {
+            //sample code
+            //serverBuilder.maxInboundMessageSize()
+        };
+    }
+}
+```
+
+2.使用custom模式，创建ServerBuilder bean，根据需要对serverBuilder进行配置
+```java
+@Configuration
+public class GrpcCustomConfig {
+    
+    @Bean
+    @ConditionalOnProperty(value = "grpc.server.model", havingValue = GrpcServerProperties.SERVER_MODEL_CUSTOM)
+    public ServerBuilder getServerBuilder() {
+        ServerBuilder<?> serverBuilder;
+        
+        //create and config serverBuilder
+        
+        return serverBuilder;
+    }
+
+}
+```
+
 ### Client
 ##### Maven
 ```xml
@@ -67,6 +114,80 @@ compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1'
 ##### Gradle
 ```gradle
 compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1'
+```
+
+##### Java
+```java
+@RestController
+public class GreeterController {
+
+    @GrpcClient("default")
+    private GreeterGrpc.GreeterBlockingStub greeterBlockingStub;
+
+    @RequestMapping(value = {"/greet"})
+    public String greet() {
+        //code...
+        response = greeterBlockingStub.sayHello(request);
+        //code...
+    }
+
+}
+```
+
+#### 如果需要对Client进一步配置
+1.可创建GrpcChannelBuilderConfigurer bean，在configure里对创建好的channelBuilder进一步配置
+```java
+@Configuration
+public class GrpcClientConfig {
+
+    @Bean
+    public GrpcChannelBuilderConfigurer channelBuilderConfigurer() {
+        return (channelBuilder, name) -> {
+            log.info("configure channelBuilder...");
+            //channelBuilder.loadBalancerFactory(something);
+            //etc.
+        };
+    }
+
+}
+```
+
+2.可创建GrpcChannelConfigurer bean，在configure里对创建好的channel进一步配置
+```java
+@Configuration
+public class GrpcClientConfig {
+
+    @Bean
+    public GrpcChannelConfigurer channelConfigurer() {
+        return (channel, name) -> {
+            log.info("configure channel...");
+            //ClientInterceptors.intercept(channel, interceptors);
+            //etc.
+        };
+    }
+}
+```
+
+3.可使用custom模式，创建CustomChannelFactory bean，实现ChannelBuilder的创建逻辑
+```java
+@Configuration
+public class GrpcClientConfig {
+
+    @Bean
+    public CustomChannelFactory customChannelFactory(final GrpcClientPropertiesMap clientPropertiesMap,
+                                                     final GrpcChannelBuilderConfigurer channelBuilderConfigurer,
+                                                     final GrpcChannelConfigurer channelConfigurer) {
+        return new CustomChannelFactory(clientPropertiesMap, channelBuilderConfigurer, channelConfigurer) {
+            @Override
+            protected ManagedChannelBuilder newChannelBuilder(final String name, final GrpcClientProperties clientProperties) {
+                ManagedChannelBuilder<?> managedChannelBuilder;
+                //create and config ChannelBuilder
+                return managedChannelBuilder;
+            }
+        };
+    }
+
+}
 ```
 
 ### Server + Client
@@ -83,6 +204,9 @@ compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1'
 ```gradle
 compile 'io.nity.grpc:grpc-spring-boot-starter:0.9.1'
 ```
+
+#### Snapshots仓库
+https://oss.sonatype.org/content/repositories/snapshots/
 
 具体的代码请参照各示例模块。
 

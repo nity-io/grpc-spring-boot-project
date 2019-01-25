@@ -20,7 +20,7 @@ import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.stub.StreamObserver;
-import io.nity.grpc.GrpcService;
+import io.nity.grpc.server.GrpcService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
