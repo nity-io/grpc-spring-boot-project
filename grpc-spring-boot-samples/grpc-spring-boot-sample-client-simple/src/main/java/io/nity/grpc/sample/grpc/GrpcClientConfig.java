@@ -14,30 +14,19 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.sample.web;
+package io.nity.grpc.sample.grpc;
 
-import io.nity.grpc.sample.service.GreeterService;
+import io.nity.grpc.client.config.GrpcClientPropertiesMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Configuration;
 
 @Slf4j
-@RestController
-public class GreeterController {
+@Configuration
+public class GrpcClientConfig {
 
     @Autowired
-    private GreeterService greeterService;
-
-    @RequestMapping(value = {"/greet"})
-    public String greet() {
-        String user = "World";
-
-        String message = greeterService.sayHello(user);
-        log.info("greet receive response ...");
-
-        return message;
-    }
+    protected GrpcClientPropertiesMap clientPropertiesMap;
 
 
 }

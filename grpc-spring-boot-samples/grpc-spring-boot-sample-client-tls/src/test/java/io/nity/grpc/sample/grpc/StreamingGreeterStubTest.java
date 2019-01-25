@@ -14,37 +14,42 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.sample.web;
+package io.nity.grpc.sample.grpc;
 
-import com.google.common.collect.Lists;
 import io.grpc.examples.manualflowcontrol.StreamingGreeterGrpc;
 import io.grpc.stub.ClientCallStreamObserver;
 import io.grpc.stub.ClientResponseObserver;
-import io.grpc.stub.StreamObserver;
 import io.nity.grpc.client.inject.GrpcClient;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.junit.Assert;
+import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
-@RestController
-public class StreamingGreeterController {
+public class StreamingGreeterStubTest extends StubTestBase {
 
-    @GrpcClient("default")
+    @GrpcClient("test")
     private StreamingGreeterGrpc.StreamingGreeterStub streamingGreeterStub;
 
-    @RequestMapping(value = {"/streamingGreet"})
-    public String greet() {
-        String user = "World";
+    private static List<String> names() {
+        return Arrays.asList(
+                "Sophia",
+                "Jackson"
+        );
+    }
 
-        log.info("greet sent request ...");
+    @Test
+    public void testSayHello() throws InterruptedException {
+        final CountDownLatch done = new CountDownLatch(1);
+        final AtomicInteger errorCount = new AtomicInteger(0);
 
-        List<String> names = Lists.newArrayList();
-        names.add(user);
-
+        // When using manual flow-control and back-pressure on the client, the ClientResponseObserver handles both
+        // request and response streams.
         ClientResponseObserver<io.grpc.examples.manualflowcontrol.HelloRequest, io.grpc.examples.manualflowcontrol.HelloReply> clientResponseObserver =
                 new ClientResponseObserver<io.grpc.examples.manualflowcontrol.HelloRequest, io.grpc.examples.manualflowcontrol.HelloReply>() {
 
@@ -70,7 +75,7 @@ public class StreamingGreeterController {
                         // in a timely manor or else message processing throughput will suffer.
                         requestStream.setOnReadyHandler(new Runnable() {
                             // An iterator is used so we can pause and resume iteration of the request data.
-                            Iterator<String> iterator = names.iterator();
+                            Iterator<String> iterator = names().iterator();
 
                             @Override
                             public void run() {
@@ -101,18 +106,25 @@ public class StreamingGreeterController {
                     @Override
                     public void onError(Throwable t) {
                         t.printStackTrace();
+                        done.countDown();
+                        errorCount.incrementAndGet();
                     }
 
                     @Override
                     public void onCompleted() {
                         log.info("All Done");
+                        done.countDown();
                     }
                 };
 
-        StreamObserver<io.grpc.examples.manualflowcontrol.HelloRequest> helloRequestStreamObserver = streamingGreeterStub.sayHelloStreaming(clientResponseObserver);
+        // Note: clientResponseObserver is handling both request and response stream processing.
+        streamingGreeterStub.sayHelloStreaming(clientResponseObserver);
 
-        return "done";
+        done.await();
+
+        if (errorCount.intValue() > 0) {
+            Assert.fail(errorCount + " Error when test sayHelloStreaming");
+        }
     }
-
 
 }

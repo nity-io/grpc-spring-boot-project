@@ -16,28 +16,18 @@
 
 package io.nity.grpc.sample.web;
 
-import io.nity.grpc.sample.service.GreeterService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.junit.Assert;
+import org.junit.Test;
 
-@Slf4j
-@RestController
-public class GreeterController {
+public class GreeterControllerTest extends WebTestBase{
 
-    @Autowired
-    private GreeterService greeterService;
+    @Test
+    public void testSayHello() throws Exception {
+        String url = "http://localhost:8080/greet";
 
-    @RequestMapping(value = {"/greet"})
-    public String greet() {
-        String user = "World";
+        String response = restTemplate.getForEntity(url, String.class).getBody();
 
-        String message = greeterService.sayHello(user);
-        log.info("greet receive response ...");
-
-        return message;
+        Assert.assertEquals("Hello World", response);
     }
-
 
 }

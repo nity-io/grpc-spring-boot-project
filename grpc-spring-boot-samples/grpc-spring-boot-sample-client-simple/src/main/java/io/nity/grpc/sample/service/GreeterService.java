@@ -14,25 +14,28 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.sample.web;
+package io.nity.grpc.sample.service;
 
 import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.nity.grpc.client.inject.GrpcClient;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
+/**
+ * 可以按平常的方式使用service
+ */
 @Slf4j
-@RestController
-public class GreeterController {
+@Service
+public class GreeterService {
 
     @GrpcClient("default")
     private GreeterGrpc.GreeterBlockingStub greeterBlockingStub;
 
-    @RequestMapping(value = {"/greet"})
-    public String greet() {
+    public String sayHello(String name) {
+        log.info("GreeterService_sayHello name:{}", name);
+
         HelloReply response;
 
         String user = "World";

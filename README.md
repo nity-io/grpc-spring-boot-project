@@ -84,6 +84,9 @@ compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1-SNAPSHOT'
 compile 'io.nity.grpc:grpc-spring-boot-starter:0.9.1-SNAPSHOT'
 ```
 
+#### Snapshots仓库
+https://oss.sonatype.org/content/repositories/snapshots/
+
 具体的代码请参照各示例模块。
 
 ----------
