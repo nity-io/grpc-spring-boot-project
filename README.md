@@ -40,18 +40,27 @@ $ sh grpc-spring-boot-samples/tools/create_openssl_key.sh
 ## 使用
 
 ### Server
+
 ##### Maven
 ```xml
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-server-spring-boot-starter</artifactId>
-    <version>0.9.2</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.2'
+compile 'io.nity.grpc:grpc-server-spring-boot-starter:1.0.0'
+```
+
+##### application.properties
+```properties
+grpc.server.enableReflection=true
+grpc.server.model=simple
+grpc.server.host=localhost
+grpc.server.port=50440
 ```
 
 ##### Java
@@ -102,18 +111,26 @@ public class GrpcCustomConfig {
 ```
 
 ### Client
+
 ##### Maven
 ```xml
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-client-spring-boot-starter</artifactId>
-    <version>0.9.2</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.2'
+compile 'io.nity.grpc:grpc-client-spring-boot-starter:1.0.0'
+```
+
+##### application.properties
+```properties
+grpc.client.default.model=simple
+grpc.client.default.host=localhost
+grpc.client.default.port=50440
 ```
 
 ##### Java
@@ -196,13 +213,13 @@ public class GrpcClientConfig {
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-spring-boot-starter</artifactId>
-    <version>0.9.2</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-spring-boot-starter:0.9.2'
+compile 'io.nity.grpc:grpc-spring-boot-starter:1.0.0'
 ```
 
 #### Snapshots仓库
