@@ -46,13 +46,13 @@ $ sh grpc-spring-boot-samples/tools/create_openssl_key.sh
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-server-spring-boot-starter</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1-SNAPSHOT'
+compile 'io.nity.grpc:grpc-server-spring-boot-starter:1.0.0'
 ```
 
 ##### application.properties
@@ -117,13 +117,13 @@ public class GrpcCustomConfig {
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-client-spring-boot-starter</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1-SNAPSHOT'
+compile 'io.nity.grpc:grpc-client-spring-boot-starter:1.0.0'
 ```
 
 ##### application.properties
@@ -213,13 +213,13 @@ public class GrpcClientConfig {
 <dependency>
     <groupId>io.nity.grpc</groupId>
     <artifactId>grpc-spring-boot-starter</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-compile 'io.nity.grpc:grpc-spring-boot-starter:0.9.1-SNAPSHOT'
+compile 'io.nity.grpc:grpc-spring-boot-starter:1.0.0'
 ```
 
 #### Snapshots仓库
