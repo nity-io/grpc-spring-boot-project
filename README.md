@@ -40,6 +40,7 @@ $ sh grpc-spring-boot-samples/tools/create_openssl_key.sh
 ## 使用
 
 ### Server
+
 ##### Maven
 ```xml
 <dependency>
@@ -52,6 +53,14 @@ $ sh grpc-spring-boot-samples/tools/create_openssl_key.sh
 ##### Gradle
 ```gradle
 compile 'io.nity.grpc:grpc-server-spring-boot-starter:0.9.1-SNAPSHOT'
+```
+
+##### application.properties
+```properties
+grpc.server.enableReflection=true
+grpc.server.model=simple
+grpc.server.host=localhost
+grpc.server.port=50440
 ```
 
 ##### Java
@@ -102,6 +111,7 @@ public class GrpcCustomConfig {
 ```
 
 ### Client
+
 ##### Maven
 ```xml
 <dependency>
@@ -114,6 +124,13 @@ public class GrpcCustomConfig {
 ##### Gradle
 ```gradle
 compile 'io.nity.grpc:grpc-client-spring-boot-starter:0.9.1-SNAPSHOT'
+```
+
+##### application.properties
+```properties
+grpc.client.default.model=simple
+grpc.client.default.host=localhost
+grpc.client.default.port=50440
 ```
 
 ##### Java
