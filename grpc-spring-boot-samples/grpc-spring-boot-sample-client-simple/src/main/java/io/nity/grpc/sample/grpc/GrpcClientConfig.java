@@ -17,8 +17,11 @@
 package io.nity.grpc.sample.grpc;
 
 import io.nity.grpc.client.config.GrpcClientPropertiesMap;
+import io.nity.grpc.sample.interceptor.SampleGlobalInterceptor;
+import io.nity.grpc.sample.interceptor.SampleInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
@@ -28,5 +31,13 @@ public class GrpcClientConfig {
     @Autowired
     protected GrpcClientPropertiesMap clientPropertiesMap;
 
+    @Bean
+    public SampleGlobalInterceptor sampleGlobalInterceptor() {
+        return new SampleGlobalInterceptor();
+    }
 
+    @Bean
+    public SampleInterceptor sampleInterceptor() {
+        return new SampleInterceptor();
+    }
 }

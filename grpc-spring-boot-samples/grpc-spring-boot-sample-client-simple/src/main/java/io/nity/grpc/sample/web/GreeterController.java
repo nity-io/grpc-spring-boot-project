@@ -16,9 +16,12 @@
 
 package io.nity.grpc.sample.web;
 
-import io.nity.grpc.sample.service.GreeterService;
+import io.grpc.examples.helloworld.GreeterGrpc;
+import io.grpc.examples.helloworld.HelloReply;
+import io.grpc.examples.helloworld.HelloRequest;
+import io.nity.grpc.client.inject.GrpcClient;
+import io.nity.grpc.sample.interceptor.SampleInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,17 +29,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreeterController {
 
-    @Autowired
-    private GreeterService greeterService;
+    @GrpcClient(value = "default", interceptors = SampleInterceptor.class)
+    private GreeterGrpc.GreeterBlockingStub greeterBlockingStub;
 
     @RequestMapping(value = {"/greet"})
     public String greet() {
-        String user = "World";
+        HelloReply response;
 
-        String message = greeterService.sayHello(user);
+        String user = "World";
+        HelloRequest request = HelloRequest.newBuilder()
+                .setName(user)
+                .build();
+
+        log.info("greet sent request ...");
+        response = greeterBlockingStub.sayHello(request);
         log.info("greet receive response ...");
 
-        return message;
+        return response.getMessage();
     }
 
 
