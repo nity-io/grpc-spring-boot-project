@@ -16,16 +16,14 @@
 
 package io.nity.grpc.client.channel.factory;
 
-import com.google.common.collect.Lists;
-import io.grpc.ClientInterceptor;
-import io.grpc.ClientInterceptors;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
+import io.grpc.*;
 import io.nity.grpc.client.channel.configurer.GrpcChannelBuilderConfigurer;
 import io.nity.grpc.client.channel.configurer.GrpcChannelConfigurer;
 import io.nity.grpc.client.config.GrpcClientProperties;
 import io.nity.grpc.client.config.GrpcClientPropertiesMap;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PreDestroy;
 import javax.annotation.concurrent.GuardedBy;
@@ -33,11 +31,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 import static java.util.Objects.requireNonNull;
 
 @Slf4j
-public abstract class AbstractChannelFactory<T extends ManagedChannelBuilder<T>> implements GrpcChannelFactory {
+public abstract class AbstractChannelFactory<T extends ManagedChannelBuilder<T>> implements GrpcChannelFactory, DisposableBean {
 
     private final GrpcClientPropertiesMap clientPropertiesMap;
     protected final GrpcChannelBuilderConfigurer channelBuilderConfigurer;
@@ -57,12 +56,12 @@ public abstract class AbstractChannelFactory<T extends ManagedChannelBuilder<T>>
     }
 
     @Override
-    public final ManagedChannel createChannel(final String name) {
+    public final Channel createChannel(final String name) {
         return createChannel(name, Collections.emptyList());
     }
 
     @Override
-    public ManagedChannel createChannel(final String name, final List<ClientInterceptor> customInterceptors) {
+    public Channel createChannel(final String name, final List<ClientInterceptor> customInterceptors) {
         final ManagedChannel channel;
 
         synchronized (this) {
@@ -72,15 +71,13 @@ public abstract class AbstractChannelFactory<T extends ManagedChannelBuilder<T>>
             channel = this.channels.computeIfAbsent(name, this::newManagedChannel);
         }
 
-        final List<ClientInterceptor> interceptors = Lists.newArrayList();
-
-        if (!customInterceptors.isEmpty()) {
-            interceptors.addAll(customInterceptors);
+        if (CollectionUtils.isEmpty(customInterceptors)) {
+            return channel;
         }
 
-        ClientInterceptors.intercept(channel, interceptors);
+        Channel interceptedChannel = ClientInterceptors.intercept(channel, customInterceptors);
 
-        return channel;
+        return interceptedChannel;
     }
 
     protected abstract T newChannelBuilder(final String name, final GrpcClientProperties clientProperties);
@@ -116,4 +113,16 @@ public abstract class AbstractChannelFactory<T extends ManagedChannelBuilder<T>>
         this.shutdown = true;
     }
 
+
+    @Override
+    public void destroy() throws Exception {
+        for (String name : channels.keySet()) {
+            log.info("Shutting down gRPC channel ...name:{}", name);
+            log.info("awaitTermination 5 sec.");
+
+            ManagedChannel channel = channels.get(name);
+            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+        }
+
+    }
 }

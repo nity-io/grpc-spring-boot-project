@@ -23,10 +23,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import io.grpc.*;
 import io.nity.grpc.client.channel.factory.GrpcChannelFactory;
 import io.nity.grpc.client.channel.factory.GrpcChannelFactoryFacede;
+import io.nity.grpc.client.interceptor.GlobalClientInterceptor;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.InvalidPropertyException;
@@ -39,8 +43,6 @@ import org.springframework.util.ReflectionUtils;
 
 import com.google.common.collect.Lists;
 
-import io.grpc.Channel;
-import io.grpc.ClientInterceptor;
 import io.grpc.stub.AbstractStub;
 
 public class GrpcClientBeanPostProcessor implements BeanPostProcessor {
@@ -93,7 +95,12 @@ public class GrpcClientBeanPostProcessor implements BeanPostProcessor {
      * @return The value to be injected for the given injection point.
      */
     protected <T> T processInjectionPoint(Member injectionTarget, Class<T> injectionType, GrpcClient annotation) {
-        final List<ClientInterceptor> interceptors = interceptorsFromAnnotation(annotation);
+        final Collection<GlobalClientInterceptor> globalInterceptors = this.applicationContext.getBeansOfType(GlobalClientInterceptor.class).values();
+        final List<ClientInterceptor> specInterceptors = interceptorsFromAnnotation(annotation);
+
+        List<ClientInterceptor> interceptors = new ArrayList(globalInterceptors);
+        interceptors.addAll(specInterceptors);
+
         final String name = annotation.value();
         final Channel channel = getChannelFactory().createChannel(name, interceptors);
 

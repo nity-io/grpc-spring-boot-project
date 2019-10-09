@@ -16,8 +16,8 @@
 
 package io.nity.grpc.client.channel.factory;
 
+import io.grpc.Channel;
 import io.grpc.ClientInterceptor;
-import io.grpc.ManagedChannel;
 import io.nity.grpc.client.channel.DisposableManagedChannel;
 import io.nity.grpc.client.channel.configurer.GrpcChannelBuilderConfigurer;
 import io.nity.grpc.client.channel.configurer.GrpcChannelConfigurer;
@@ -48,10 +48,10 @@ public class GrpcChannelFactoryFacede implements GrpcChannelFactory {
     }
 
     @Override
-    public ManagedChannel createChannel(final String name, List<ClientInterceptor> interceptors) {
+    public Channel createChannel(final String name, List<ClientInterceptor> interceptors) {
         GrpcClientProperties clientProperties = clientPropertiesMap.getClient(name);
 
-        ManagedChannel channel;
+        Channel channel;
 
         if (GrpcClientProperties.SERVER_MODEL_IN_PROCESS.equals(clientProperties.getModel())) {
             channel = inProcessChannelFactory.createChannel(name, interceptors);

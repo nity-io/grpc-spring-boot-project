@@ -14,23 +14,13 @@
  * limitations under the License.
  */
 
-package io.nity.grpc.client.channel.factory;
+package io.nity.grpc.client.interceptor;
 
-import io.grpc.Channel;
 import io.grpc.ClientInterceptor;
 
-import java.util.Collections;
-import java.util.List;
-
-public interface GrpcChannelFactory extends AutoCloseable {
-
-    default Channel createChannel(final String name) {
-        return createChannel(name, Collections.emptyList());
-    }
-
-    Channel createChannel(String name, List<ClientInterceptor> interceptors);
-
-    @Override
-    void close();
+/**
+ * 全局Client拦截器
+ */
+public interface GlobalClientInterceptor extends ClientInterceptor {
 
 }

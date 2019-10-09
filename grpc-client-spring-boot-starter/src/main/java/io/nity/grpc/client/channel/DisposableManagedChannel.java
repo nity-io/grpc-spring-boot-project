@@ -16,21 +16,22 @@
 
 package io.nity.grpc.client.channel;
 
-import io.grpc.*;
+import io.grpc.CallOptions;
+import io.grpc.Channel;
+import io.grpc.ClientCall;
+import io.grpc.MethodDescriptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * 优雅关闭gRPC连接
  */
 @Slf4j
-public class DisposableManagedChannel extends ManagedChannel implements DisposableBean {
+public class DisposableManagedChannel extends Channel implements DisposableBean {
 
-    private ManagedChannel channel;
+    private Channel channel;
 
-    public DisposableManagedChannel(ManagedChannel channel) {
+    public DisposableManagedChannel(Channel channel) {
         this.channel = channel;
     }
 
@@ -48,31 +49,6 @@ public class DisposableManagedChannel extends ManagedChannel implements Disposab
     public void destroy() throws Exception {
         log.info("Shutting down gRPC channel ...");
         log.info("awaitTermination 5 sec.");
-        channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
     }
 
-    @Override
-    public ManagedChannel shutdown() {
-        return channel.shutdown();
-    }
-
-    @Override
-    public boolean isShutdown() {
-        return channel.isShutdown();
-    }
-
-    @Override
-    public boolean isTerminated() {
-        return channel.isTerminated();
-    }
-
-    @Override
-    public ManagedChannel shutdownNow() {
-        return channel.shutdownNow();
-    }
-
-    @Override
-    public boolean awaitTermination(long l, TimeUnit timeUnit) throws InterruptedException {
-        return channel.awaitTermination(l, timeUnit);
-    }
 }
